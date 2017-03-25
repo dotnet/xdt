@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F12A74E7-82BA-467A-B873-9719971D3108}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A010280A-774A-4F20-ABBC-1F135BBE992A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D472681E-64B2-4C82-A52E-CD9D8930EA60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlTransform", "src\XmlTransform\XmlTransform.csproj", "{F2E03970-2557-4C66-B186-AF30D96A571B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlTransform.Test", "test\XmlTransform.Test\XmlTransform.Test.csproj", "{DB41C989-B31C-4C42-8E0E-B4B725AC1833}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2E03970-2557-4C66-B186-AF30D96A571B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E03970-2557-4C66-B186-AF30D96A571B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E03970-2557-4C66-B186-AF30D96A571B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E03970-2557-4C66-B186-AF30D96A571B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB41C989-B31C-4C42-8E0E-B4B725AC1833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB41C989-B31C-4C42-8E0E-B4B725AC1833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB41C989-B31C-4C42-8E0E-B4B725AC1833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB41C989-B31C-4C42-8E0E-B4B725AC1833}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2E03970-2557-4C66-B186-AF30D96A571B} = {F12A74E7-82BA-467A-B873-9719971D3108}
+		{DB41C989-B31C-4C42-8E0E-B4B725AC1833} = {D472681E-64B2-4C82-A52E-CD9D8930EA60}
+	EndGlobalSection
+EndGlobal
