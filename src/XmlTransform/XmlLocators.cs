@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Globalization;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -42,7 +43,7 @@ namespace Microsoft.Web.XmlTransform
                     }
                 }
                 else {
-                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_MatchAttributeDoesNotExist, key));
+                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_MatchAttributeDoesNotExist, key));
                 }
             }
 

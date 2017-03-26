@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Diagnostics;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -71,7 +72,7 @@ namespace Microsoft.Web.XmlTransform
             if (attributes.Count == 0 && warnIfEmpty) {
                 Debug.Assert(arguments.Count == 1, "Should only call warnIfEmpty==true with one argument");
                 if (arguments.Count == 1) {
-                    Log.LogWarning(SR.XMLTRANSFORMATION_TransformArgumentFoundNoAttributes, arguments[0]);
+                    Log.LogWarning(Resources.XMLTRANSFORMATION_TransformArgumentFoundNoAttributes, arguments[0]);
                 }
             }
 

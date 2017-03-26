@@ -5,6 +5,7 @@ using System.Reflection;
 using System.IO;
 using System.Runtime.Loader;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -44,15 +45,15 @@ namespace Microsoft.Web.XmlTransform
             if (!String.IsNullOrEmpty(typeName)) {
                 Type type = GetType(typeName);
                 if (type == null) {
-                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_UnknownTypeName, typeName, typeof(ObjectType).Name));
+                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_UnknownTypeName, typeName, typeof(ObjectType).Name));
                 }
                 else if (!type.GetTypeInfo().IsSubclassOf(typeof(ObjectType))) {
-                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_IncorrectBaseType, type.FullName, typeof(ObjectType).Name));
+                    throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_IncorrectBaseType, type.FullName, typeof(ObjectType).Name));
                 }
                 else {
                     ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
                     if (constructor == null) {
-                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_NoValidConstructor, type.FullName));
+                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_NoValidConstructor, type.FullName));
                     }
                     else {
                         return constructor.Invoke(new object[] { }) as ObjectType;
@@ -73,7 +74,7 @@ namespace Microsoft.Web.XmlTransform
                             foundType = regType;
                         }
                         else {
-                            throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_AmbiguousTypeMatch, typeName));
+                            throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_AmbiguousTypeMatch, typeName));
                         }
                     }
                 }

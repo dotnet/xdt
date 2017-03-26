@@ -5,6 +5,7 @@ using System.Xml;
 using System.Diagnostics;
 using RegularExpressions = System.Text.RegularExpressions;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -12,7 +13,7 @@ namespace Microsoft.Web.XmlTransform
     {
         internal static void ExpectNoArguments(XmlTransformationLogger log, string transformName, string argumentString) {
             if (!String.IsNullOrEmpty(argumentString)) {
-                log.LogWarning(SR.XMLTRANSFORMATION_TransformDoesNotExpectArguments, transformName);
+                log.LogWarning(Resources.XMLTRANSFORMATION_TransformDoesNotExpectArguments, transformName);
             }
         }
 
@@ -20,7 +21,7 @@ namespace Microsoft.Web.XmlTransform
             Debug.Assert(applyTransformToAllTargets == false);
 
             if (targetNodes.Count > 1) {
-                log.LogWarning(SR.XMLTRANSFORMATION_TransformOnlyAppliesOnce, transformName);
+                log.LogWarning(Resources.XMLTRANSFORMATION_TransformOnlyAppliesOnce, transformName);
             }
         }
     }
@@ -36,7 +37,7 @@ namespace Microsoft.Web.XmlTransform
                 TransformNode,
                 TargetNode);
 
-            Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageReplace, TargetNode.Name);
+            Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageReplace, TargetNode.Name);
         }
     }
 
@@ -55,7 +56,7 @@ namespace Microsoft.Web.XmlTransform
             XmlNode parentNode = TargetNode.ParentNode;
             parentNode.RemoveChild(TargetNode);
 
-            Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageRemove, TargetNode.Name);
+            Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageRemove, TargetNode.Name);
         }
     }
 
@@ -81,7 +82,7 @@ namespace Microsoft.Web.XmlTransform
 
             TargetNode.AppendChild(TransformNode);
 
-            Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name);
+            Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name);
         }
     }
 
@@ -93,7 +94,7 @@ namespace Microsoft.Web.XmlTransform
             if (this.TargetChildNodes == null || this.TargetChildNodes.Count == 0)
             {
                 TargetNode.AppendChild(TransformNode);
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name);
             }
         }
     }
@@ -112,21 +113,21 @@ namespace Microsoft.Web.XmlTransform
             get {
                 if (siblingElement == null) {
                     if (Arguments == null || Arguments.Count == 0) {
-                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_InsertMissingArgument, GetType().Name));
+                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_InsertMissingArgument, GetType().Name));
                     }
                     else if (Arguments.Count > 1) {
-                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_InsertTooManyArguments, GetType().Name));
+                        throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_InsertTooManyArguments, GetType().Name));
                     }
                     else {
                         string xpath = Arguments[0];
                         XmlNodeList siblings = TargetNode.SelectNodes(xpath);
                         if (siblings.Count == 0) {
-                            throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_InsertBadXPath, xpath));
+                            throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_InsertBadXPath, xpath));
                         }
                         else {
                             siblingElement = siblings[0] as XmlElement;
                             if (siblingElement == null) {
-                                throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_InsertBadXPathResult, xpath));
+                                throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_InsertBadXPathResult, xpath));
                             }
                         }
                     }
@@ -142,7 +143,7 @@ namespace Microsoft.Web.XmlTransform
         protected override void Apply() {
             SiblingElement.ParentNode.InsertAfter(TransformNode, SiblingElement);
 
-            Log.LogMessage(MessageType.Verbose, string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name));
+            Log.LogMessage(MessageType.Verbose, string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name));
         }
     }
 
@@ -151,7 +152,7 @@ namespace Microsoft.Web.XmlTransform
         protected override void Apply() {
             SiblingElement.ParentNode.InsertBefore(TransformNode, SiblingElement);
 
-            Log.LogMessage(MessageType.Verbose, string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name));
+            Log.LogMessage(MessageType.Verbose, string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_TransformMessageInsert, TransformNode.Name));
         }
     }
 
@@ -167,14 +168,14 @@ namespace Microsoft.Web.XmlTransform
                     TargetNode.Attributes.Append((XmlAttribute)transformAttribute.CloneNode(true));
                 }
 
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageSetAttribute, transformAttribute.Name);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageSetAttribute, transformAttribute.Name);
             }
 
             if (TransformAttributes.Count > 0) {
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageSetAttributes, TransformAttributes.Count);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageSetAttributes, TransformAttributes.Count);
             }
             else {
-                Log.LogWarning(SR.XMLTRANSFORMATION_TransformMessageNoSetAttributes);
+                Log.LogWarning(Resources.XMLTRANSFORMATION_TransformMessageNoSetAttributes);
             }
         }
     }
@@ -261,16 +262,16 @@ namespace Microsoft.Web.XmlTransform
                     TargetNode.Attributes.Append(newAttribute);
                 }
 
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageSetAttribute, transformAttribute.Name);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageSetAttribute, transformAttribute.Name);
             }
 
             if (TransformAttributes.Count > 0)
             {
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageSetAttributes, TransformAttributes.Count);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageSetAttributes, TransformAttributes.Count);
             }
             else
             {
-                Log.LogWarning(SR.XMLTRANSFORMATION_TransformMessageNoSetAttributes);
+                Log.LogWarning(Resources.XMLTRANSFORMATION_TransformMessageNoSetAttributes);
             }
         }
 
@@ -437,7 +438,7 @@ namespace Microsoft.Web.XmlTransform
                             }
                             else
                             {
-                                throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_MatchAttributeDoesNotExist, match));
+                                throw new XmlTransformationException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_MatchAttributeDoesNotExist, match));
                             }
                         }
                     }
@@ -608,14 +609,14 @@ namespace Microsoft.Web.XmlTransform
             foreach (XmlAttribute attribute in TargetAttributes) {
                 TargetNode.Attributes.Remove(attribute);
 
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageRemoveAttribute, attribute.Name);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageRemoveAttribute, attribute.Name);
             }
 
             if (TargetAttributes.Count > 0) {
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformMessageRemoveAttributes, TargetAttributes.Count);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageRemoveAttributes, TargetAttributes.Count);
             }
             else {
-                Log.LogWarning(TargetNode, SR.XMLTRANSFORMATION_TransformMessageNoRemoveAttributes);
+                Log.LogWarning(TargetNode, Resources.XMLTRANSFORMATION_TransformMessageNoRemoveAttributes);
             }
         }
     }
