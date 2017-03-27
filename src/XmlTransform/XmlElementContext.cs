@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Globalization;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -315,7 +316,7 @@ namespace Microsoft.Web.XmlTransform
                 return match.Groups["name"].Captures[0].Value;
             }
             else {
-                throw new XmlTransformationException(SR.XMLTRANSFORMATION_BadAttributeValue);
+                throw new XmlTransformationException(Resources.XMLTRANSFORMATION_BadAttributeValue);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Diagnostics;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -162,7 +163,7 @@ namespace Microsoft.Web.XmlTransform
         private string TransformNameLong {
             get {
                 if (context.HasLineInfo) {
-                    return string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_TransformNameFormatLong, TransformName, context.TransformLineNumber, context.TransformLinePosition);
+                    return string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_TransformNameFormatLong, TransformName, context.TransformLineNumber, context.TransformLinePosition);
                 }
                 else {
                     return TransformNameShort;
@@ -172,7 +173,7 @@ namespace Microsoft.Web.XmlTransform
 
         internal string TransformNameShort {
             get {
-                return string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_TransformNameFormatShort, TransformName);
+                return string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_TransformNameFormatShort, TransformName);
             }
         }
 
@@ -198,8 +199,8 @@ namespace Microsoft.Web.XmlTransform
                     if (ShouldExecuteTransform()) {
                         startedSection = true;
 
-                        Log.StartSection(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformBeginExecutingMessage, TransformNameLong);
-                        Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformStatusXPath, context.XPath);
+                        Log.StartSection(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformBeginExecutingMessage, TransformNameLong);
+                        Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformStatusXPath, context.XPath);
 
                         if (ApplyTransformToAllTargetNodes) {
                             ApplyOnAllTargetNodes();
@@ -221,14 +222,14 @@ namespace Microsoft.Web.XmlTransform
                 finally {
                     if (startedSection) {
                         if (error) {
-                            Log.EndSection(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformErrorExecutingMessage, TransformNameShort);
+                            Log.EndSection(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformErrorExecutingMessage, TransformNameShort);
                         }
                         else {
-                            Log.EndSection(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformEndExecutingMessage, TransformNameShort);
+                            Log.EndSection(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformEndExecutingMessage, TransformNameShort);
                         }
                     }
                     else {
-                        Log.LogMessage(MessageType.Normal, SR.XMLTRANSFORMATION_TransformNotExecutingMessage, TransformNameLong);
+                        Log.LogMessage(MessageType.Normal, Resources.XMLTRANSFORMATION_TransformNotExecutingMessage, TransformNameLong);
                     }
 
                     this.context = null;
@@ -277,10 +278,10 @@ namespace Microsoft.Web.XmlTransform
         private void WriteApplyMessage(XmlNode targetNode) {
             IXmlLineInfo lineInfo = targetNode as IXmlLineInfo;
             if (lineInfo != null) {
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformStatusApplyTarget, targetNode.Name, lineInfo.LineNumber, lineInfo.LinePosition);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformStatusApplyTarget, targetNode.Name, lineInfo.LineNumber, lineInfo.LinePosition);
             }
             else {
-                Log.LogMessage(MessageType.Verbose, SR.XMLTRANSFORMATION_TransformStatusApplyTargetNoLineInfo, targetNode.Name);
+                Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformStatusApplyTargetNoLineInfo, targetNode.Name);
             }
         }
 
@@ -310,8 +311,8 @@ namespace Microsoft.Web.XmlTransform
 
         private void HandleMissingTarget(XmlElementContext matchFailureContext, bool existedInOriginal) {
             string messageFormat = existedInOriginal
-                ? SR.XMLTRANSFORMATION_TransformSourceMatchWasRemoved
-                : SR.XMLTRANSFORMATION_TransformNoMatchingTargetNodes;
+                ? Resources.XMLTRANSFORMATION_TransformSourceMatchWasRemoved
+                : Resources.XMLTRANSFORMATION_TransformNoMatchingTargetNodes;
 
             string message = string.Format(System.Globalization.CultureInfo.CurrentCulture,messageFormat, matchFailureContext.XPath);
             switch(MissingTargetMessage) {

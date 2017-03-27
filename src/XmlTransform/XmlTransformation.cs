@@ -5,6 +5,7 @@ using System.Xml;
 using System.IO;
 using System.Text;
 using XmlTransform;
+using XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -139,7 +140,7 @@ namespace Microsoft.Web.XmlTransform
                                 PreprocessImportElement(context);
                                 break;
                             default:
-                                logger.LogWarning(element, SR.XMLTRANSFORMATION_UnknownXdtTag, element.Name);
+                                logger.LogWarning(element, Resources.XMLTRANSFORMATION_UnknownXdtTag, element.Name);
                                 break;
                         }
                     }
@@ -149,7 +150,7 @@ namespace Microsoft.Web.XmlTransform
                         }
 
                         logger.LogErrorFromException(ex);
-                        throw new XmlTransformationException(SR.XMLTRANSFORMATION_FatalTransformSyntaxError, ex);
+                        throw new XmlTransformationException(Resources.XMLTRANSFORMATION_FatalTransformSyntaxError, ex);
                     }
                     finally {
                         context = null;
@@ -311,17 +312,17 @@ namespace Microsoft.Web.XmlTransform
                     }
                 }
 
-                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_ImportUnknownAttribute, attribute.Name), attribute);
+                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_ImportUnknownAttribute, attribute.Name), attribute);
             }
 
             if (assemblyName != null && path != null) {
-                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_ImportAttributeConflict), context.Element);
+                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_ImportAttributeConflict), context.Element);
             }
             else if (assemblyName == null && path == null) {
-                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_ImportMissingAssembly), context.Element);
+                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_ImportMissingAssembly), context.Element);
             }
             else if (nameSpace == null) {
-                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,SR.XMLTRANSFORMATION_ImportMissingNamespace), context.Element);
+                throw new XmlNodeException(string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_ImportMissingNamespace), context.Element);
             }
             else {
                 if (assemblyName != null) {
