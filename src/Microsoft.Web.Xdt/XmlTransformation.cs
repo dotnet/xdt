@@ -3,9 +3,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Xml;
 using System.IO;
-using System.Text;
-using XmlTransform;
-using XmlTransform.Properties;
+using Microsoft.Web.Xdt.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -43,15 +41,10 @@ namespace Microsoft.Web.XmlTransform
             this.transformFile = transform;
             this.logger = new XmlTransformationLogger(logger);
 
-            XmlFileInfoDocument doc = new XmlFileInfoDocument();
-            xmlTransformation = doc;
+            xmlTransformation = new XmlFileInfoDocument();
             if (isTransformAFile)
             {
-                doc.FileName = transform;
-                using (Stream file = File.OpenRead(transform))
-                {
-                    xmlTransformation.Load(file);
-                }
+                xmlTransformation.Load(transform);
             }
             else
             {
@@ -200,8 +193,7 @@ namespace Microsoft.Web.XmlTransform
 
                 return !logger.HasLoggedErrors;
             }
-            else
-            {
+            else {
                 return false;
             }
         }
@@ -380,7 +372,7 @@ namespace Microsoft.Web.XmlTransform
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);        
         }
 
         ~XmlTransformation()

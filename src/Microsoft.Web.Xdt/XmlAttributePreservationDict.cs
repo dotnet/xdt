@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.IO;
 
 namespace Microsoft.Web.XmlTransform
@@ -31,8 +33,8 @@ namespace Microsoft.Web.XmlTransform
             Debug.Assert(elementStartTag.StartsWith("<", StringComparison.Ordinal) && elementStartTag.EndsWith(">", StringComparison.Ordinal), "Expected string containing exactly a single tag");
             WhitespaceTrackingTextReader whitespaceReader = new WhitespaceTrackingTextReader(new StringReader(elementStartTag));
 
-            int lastCharacter = EnumerateAttributes(elementStartTag,
-                (int line, int linePosition, string attributeName) =>
+            int lastCharacter = EnumerateAttributes(elementStartTag, 
+                (int line, int linePosition, string attributeName) => 
                 {
                     orderedAttributes.Add(attributeName);
                     if (whitespaceReader.ReadToPosition(line, linePosition))
@@ -63,14 +65,15 @@ namespace Microsoft.Web.XmlTransform
                 xmlDocString = elementStartTag.Substring(0, elementStartTag.Length-1) + "/>" ;
             }
 
-            XmlReader xmlReader = XmlReader.Create(new StringReader(xmlDocString));
+            XmlTextReader xmlReader = new XmlTextReader(new StringReader(xmlDocString));
+
+            xmlReader.Namespaces = false;
             xmlReader.Read();
 
             bool hasMoreAttributes = xmlReader.MoveToFirstAttribute();
             while (hasMoreAttributes)
             {
-                IXmlLineInfo lineInfo = (IXmlLineInfo) xmlReader;
-                onAttributeSpotted(lineInfo.LineNumber, lineInfo.LinePosition, xmlReader.Name);
+                onAttributeSpotted(xmlReader.LineNumber, xmlReader.LinePosition, xmlReader.Name);
                 hasMoreAttributes = xmlReader.MoveToNextAttribute();
             }
 
@@ -152,7 +155,7 @@ namespace Microsoft.Web.XmlTransform
                         //      keep the last one.
                         //   3. Otherwise, remove leading space.
                         //
-                        // In order to remove trailing space, we have to
+                        // In order to remove trailing space, we have to 
                         // remove the leading space of the next attribute, so
                         // we store this leading space to replace the next.
                         if (leadingSpaces.ContainsKey(key)) {

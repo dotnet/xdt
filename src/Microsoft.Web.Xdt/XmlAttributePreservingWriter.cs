@@ -10,11 +10,11 @@ namespace Microsoft.Web.XmlTransform
 {
     internal class XmlAttributePreservingWriter : XmlWriter
     {
-        private XmlWriter xmlWriter;
+        private XmlTextWriter xmlWriter;
         private AttributeTextWriter textWriter;
 
         public XmlAttributePreservingWriter(string fileName, Encoding encoding)
-            : this(encoding == null ? new StreamWriter(File.Create(fileName)) : new StreamWriter(File.Create(fileName), encoding, 8192, false)) {
+            : this(encoding == null ? new StreamWriter(fileName) : new StreamWriter(fileName, false, encoding)) {
         }
 
         public XmlAttributePreservingWriter(Stream w, Encoding encoding)
@@ -24,7 +24,7 @@ namespace Microsoft.Web.XmlTransform
 
         public XmlAttributePreservingWriter(TextWriter textWriter) {
             this.textWriter = new AttributeTextWriter(textWriter);
-            this.xmlWriter = XmlWriter.Create(textWriter);
+            this.xmlWriter = new XmlTextWriter(this.textWriter);
         }
 
         public void WriteAttributeWhitespace(string whitespace) {
@@ -90,6 +90,7 @@ namespace Microsoft.Web.XmlTransform
                 ReadingAttribute,
                 Buffering,
                 FlushingBuffer,
+                WritingComment,
             }
 
             #region private data members
@@ -137,6 +138,18 @@ namespace Microsoft.Web.XmlTransform
                 WriteQueuedAttribute();
             }
 
+            public void StartComment() {
+                Debug.Assert(state == State.Writing || state == State.Buffering);
+
+                ChangeState(State.WritingComment);
+            }
+
+            public void EndComment() {
+                Debug.Assert(state == State.WritingComment);
+
+                ChangeState(State.Writing);
+            }
+
             public int MaxLineLength {
                 get {
                     return maxLineLength;
@@ -157,6 +170,7 @@ namespace Microsoft.Web.XmlTransform
                         }
                         goto case State.Writing;
                     case State.Writing:
+                    case State.WritingComment:
                     case State.FlushingBuffer:
                         ReallyWriteCharacter(value);
                         break;
@@ -168,8 +182,15 @@ namespace Microsoft.Web.XmlTransform
             }
 
             private void UpdateState(char value) {
+
+                if (state == State.WritingComment) {
+                    // We never want to do any formatting while writing a comment,
+                    // so don't leave this state.
+                    return;
+                }
+
                 // This logic prevents writing the leading space that
-                // XmlTextWriter wants to put before "/>".
+                // XmlTextWriter wants to put before "/>". 
                 switch (value) {
                     case ' ':
                         if (state == State.Writing) {
@@ -280,10 +301,17 @@ namespace Microsoft.Web.XmlTransform
             public override void Flush() {
                 baseWriter.Flush();
             }
+
+            public override void Close() {
+                baseWriter.Close();
+            }
         }
         #endregion
 
         #region XmlWriter implementation
+        public override void Close() {
+            xmlWriter.Close();
+        }
 
         public override void Flush() {
             xmlWriter.Flush();
@@ -310,7 +338,11 @@ namespace Microsoft.Web.XmlTransform
         }
 
         public override void WriteComment(string text) {
+            textWriter.StartComment();
+
             xmlWriter.WriteComment(text);
+
+            textWriter.EndComment();
         }
 
         public override void WriteDocType(string name, string pubid, string sysid, string subset) {

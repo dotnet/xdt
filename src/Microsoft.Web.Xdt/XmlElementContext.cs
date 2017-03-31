@@ -6,8 +6,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
-using XmlTransform;
-using XmlTransform.Properties;
+using Microsoft.Web.Xdt.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -201,12 +200,12 @@ namespace Microsoft.Web.XmlTransform
         private XmlNode CreateCloneInTargetDocument(XmlNode sourceNode) {
             XmlFileInfoDocument infoDocument = TargetDocument as XmlFileInfoDocument;
             XmlNode clonedNode;
-
+            
             if (infoDocument != null) {
                 clonedNode = infoDocument.CloneNodeFromOtherDocument(sourceNode);
             }
             else {
-                XmlReader reader = XmlReader.Create(new StringReader(sourceNode.OuterXml));
+                XmlReader reader = new XmlTextReader(new StringReader(sourceNode.OuterXml));
                 clonedNode = TargetDocument.ReadNode(reader);
             }
 

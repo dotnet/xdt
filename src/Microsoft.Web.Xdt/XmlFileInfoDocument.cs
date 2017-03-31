@@ -4,14 +4,13 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace Microsoft.Web.XmlTransform
 {
     public class XmlFileInfoDocument : XmlDocument, IDisposable
     {
         private Encoding _textEncoding = null;
-        private XmlReader _reader = null;
+        private XmlTextReader _reader = null;
         private XmlAttributePreservationProvider _preservationProvider = null;
         private bool _firstLoad = true;
         private string _fileName = null;
@@ -19,25 +18,102 @@ namespace Microsoft.Web.XmlTransform
         private int _lineNumberOffset = 0;
         private int _linePositionOffset = 0;
 
-        public override void Load(XmlReader reader) {
-            _reader = reader;
-            if (_fileName == null && _reader != null) {
-                _fileName = reader.BaseURI;
-            }
+        public override void Load(string filename) {
+            LoadFromFileName(filename);
 
-            base.Load(reader);
             _firstLoad = false;
         }
 
+        public override void Load(XmlReader reader) {
+            _reader = reader as XmlTextReader;
+            if (_reader != null) {
+                _fileName = _reader.BaseURI;
+            }
+
+            base.Load(reader);
+
+            if (_reader != null) {
+                _textEncoding = _reader.Encoding;
+            }
+
+            _firstLoad = false;
+        }
+
+        private void LoadFromFileName(string filename) {
+            _fileName = filename;
+
+            StreamReader reader = null;
+            try {
+                if (PreserveWhitespace) {
+                    _preservationProvider = new XmlAttributePreservationProvider(filename);
+                }
+
+                reader = new StreamReader(filename, true);
+                LoadFromTextReader(reader);
+            }
+            finally {
+                if (_preservationProvider != null)
+                {
+                    _preservationProvider.Close();
+                    _preservationProvider = null;
+                }
+                if (reader != null) {
+                    reader.Close();
+                }
+            }
+        }
+
+        private void LoadFromTextReader(TextReader textReader) {
+            StreamReader streamReader = textReader as StreamReader;
+            if (streamReader != null) {
+                FileStream fileStream = streamReader.BaseStream as FileStream;
+                if (fileStream != null) {
+                    _fileName = fileStream.Name;
+                }
+
+                _textEncoding = GetEncodingFromStream(streamReader.BaseStream);
+            }
+
+            _reader = new XmlTextReader(_fileName, textReader);
+
+            base.Load(_reader);
+
+            if (_textEncoding == null) {
+                _textEncoding = _reader.Encoding;
+            }
+        }
+
+        private Encoding GetEncodingFromStream(Stream stream) {
+            Encoding encoding = null;
+            if (stream.CanSeek) {
+                byte[] buffer = new byte[3];
+                stream.Read(buffer, 0, buffer.Length);
+
+                if (buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
+                    encoding = Encoding.UTF8;
+                else if (buffer[0] == 0xFE && buffer[1] == 0xFF)
+                    encoding = Encoding.BigEndianUnicode;
+                else if (buffer[0] == 0xFF && buffer[1] == 0xFE)
+                    encoding = Encoding.Unicode;
+                else if (buffer[0] == 0x2B && buffer[1] == 0x2F && buffer[2] == 0x76)
+                    encoding = Encoding.UTF7;
+
+                // Reset the stream
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+
+            return encoding;
+        }
+
         internal XmlNode CloneNodeFromOtherDocument(XmlNode element) {
-            XmlReader oldReader = _reader;
+            XmlTextReader oldReader = _reader;
             string oldFileName = _fileName;
 
             XmlNode clone = null;
             try {
                 IXmlLineInfo lineInfo = element as IXmlLineInfo;
                 if (lineInfo != null) {
-                    _reader = XmlReader.Create(new StringReader(element.OuterXml));
+                    _reader = new XmlTextReader(new StringReader(element.OuterXml));
 
                     _lineNumberOffset = lineInfo.LineNumber - 1;
                     _linePositionOffset = lineInfo.LinePosition - 2;
@@ -49,7 +125,7 @@ namespace Microsoft.Web.XmlTransform
                     _fileName = null;
                     _reader = null;
 
-                    clone = ReadNode(XmlReader.Create(new StringReader(element.OuterXml)));
+                    clone = ReadNode(new XmlTextReader(new StringReader(element.OuterXml)));
                 }
             }
             finally {
@@ -73,22 +149,17 @@ namespace Microsoft.Web.XmlTransform
             get {
                 return _fileName;
             }
-            set { _fileName = value; }
         }
 
         private int CurrentLineNumber {
-            get
-            {
-                IXmlLineInfo lineInfo = (IXmlLineInfo)_reader;
-                return _reader != null ? lineInfo.LineNumber + _lineNumberOffset : 0;
+            get {
+                return _reader != null ? _reader.LineNumber + _lineNumberOffset : 0;
             }
         }
 
         private int CurrentLinePosition {
-            get
-            {
-                IXmlLineInfo lineInfo = (IXmlLineInfo) _reader;
-                return lineInfo != null ? lineInfo.LinePosition + _linePositionOffset : 0;
+            get {
+                return _reader != null ? _reader.LinePosition + _linePositionOffset : 0;
             }
         }
 
@@ -122,6 +193,51 @@ namespace Microsoft.Web.XmlTransform
                     }
                 }
                 return null;
+            }
+        }
+
+        public override void Save(string filename)
+        {
+            XmlWriter xmlWriter = null;
+            try{
+                if (PreserveWhitespace){
+                    XmlFormatter.Format(this);
+                    xmlWriter = new XmlAttributePreservingWriter(filename, TextEncoding);
+                }
+                else {
+                    XmlTextWriter textWriter = new XmlTextWriter(filename, TextEncoding);
+                    textWriter.Formatting = Formatting.Indented;
+                    xmlWriter = textWriter;
+                }
+                WriteTo(xmlWriter);
+            }
+            finally {
+                if (xmlWriter != null) {
+                    xmlWriter.Flush();
+                    xmlWriter.Close();
+                }
+            }
+        }
+
+        public override void Save(Stream w)
+        {
+            XmlWriter xmlWriter = null;
+            try {
+                if (PreserveWhitespace) {
+                    XmlFormatter.Format(this);
+                    xmlWriter = new XmlAttributePreservingWriter(w, TextEncoding);
+                }
+                else {
+                    XmlTextWriter textWriter = new XmlTextWriter(w, TextEncoding);
+                    textWriter.Formatting = Formatting.Indented;
+                    xmlWriter = textWriter;
+                }
+                WriteTo(xmlWriter);
+            }
+            finally {
+                if (xmlWriter != null) {
+                    xmlWriter.Flush();
+                }
             }
         }
 
@@ -193,14 +309,12 @@ namespace Microsoft.Web.XmlTransform
 
                 w.WriteStartElement(prefix, LocalName, NamespaceURI);
 
-                if (HasAttributes) {
-                    XmlAttributePreservingWriter preservingWriter = w as XmlAttributePreservingWriter;
-                    if (preservingWriter == null || preservationDict == null) {
-                        WriteAttributesTo(w);
-                    }
-                    else {
-                        WritePreservedAttributesTo(preservingWriter);
-                    }
+                XmlAttributePreservingWriter preservingWriter = w as XmlAttributePreservingWriter;
+                if (preservingWriter == null || preservationDict == null) {
+                    WriteAttributesTo(w);
+                }
+                else {
+                    WritePreservedAttributesTo(preservingWriter);
                 }
 
                 if (IsEmpty) {
@@ -299,7 +413,7 @@ namespace Microsoft.Web.XmlTransform
         {
             if (_reader != null)
             {
-                _reader.Dispose();
+                _reader.Close();
                 _reader = null;
             }
 
@@ -310,73 +424,10 @@ namespace Microsoft.Web.XmlTransform
             }
         }
 
-        public void Save(string filename)
-        {
-            using (Stream s = File.Create(filename))
-            {
-                base.Save(s);
-                return;
-            }
-
-            //XmlWriter xmlWriter = null;
-            //try
-            //{
-            //    if (PreserveWhitespace)
-            //    {
-            //        XmlFormatter.Format(this);
-            //        xmlWriter = new XmlAttributePreservingWriter(filename, TextEncoding);
-            //    }
-            //    else
-            //    {
-            //        using (Stream s = File.Create(filename))
-            //        {
-            //            XmlWriter textWriter = XmlWriter.Create(s, new XmlWriterSettings {Encoding = TextEncoding, Indent = true});
-            //            xmlWriter = textWriter;
-            //        }
-            //    }
-            //    WriteTo(xmlWriter);
-            //}
-            //finally
-            //{
-            //    if (xmlWriter != null)
-            //    {
-            //        xmlWriter.Flush();
-            //        xmlWriter.Dispose();
-            //    }
-            //}
-        }
-
-        //public override void Save(Stream s)
-        //{
-        //    XmlWriter xmlWriter = null;
-        //    try
-        //    {
-        //        if (PreserveWhitespace)
-        //        {
-        //            XmlFormatter.Format(this);
-        //            xmlWriter = new XmlAttributePreservingWriter(s, TextEncoding);
-        //        }
-        //        else
-        //        {
-        //            XmlWriter textWriter = XmlWriter.Create(s, new XmlWriterSettings { Encoding = TextEncoding, Indent = true });
-        //            xmlWriter = textWriter;
-        //        }
-        //        WriteTo(xmlWriter);
-        //    }
-        //    finally
-        //    {
-        //        if (xmlWriter != null)
-        //        {
-        //            xmlWriter.Flush();
-        //            xmlWriter.Dispose();
-        //        }
-        //    }
-        //}
-
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);        
         }
 
         ~XmlFileInfoDocument()

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Xml;
 
@@ -41,7 +40,7 @@ namespace Microsoft.Web.XmlTransform
 
         #region Helper methods
         private void CloneOriginalDocument() {
-            xmlOriginal = (XmlDocument)this.CloneNode(true);
+            xmlOriginal = (XmlDocument)this.Clone();
         }
 
         private bool IsXmlEqual(XmlDocument xmlOriginal, XmlDocument xmlTransformed) {
@@ -51,15 +50,6 @@ namespace Microsoft.Web.XmlTransform
             return false;
         }
         #endregion
-
-        public void Load(string filePath)
-        {
-            using (Stream s = File.OpenRead(filePath))
-            {
-                FileName = filePath;
-                Load(s);
-            }
-        }
 
         #region IXmlOriginalDocumentService Members
         XmlNodeList IXmlOriginalDocumentService.SelectNodes(string xpath, XmlNamespaceManager nsmgr) {

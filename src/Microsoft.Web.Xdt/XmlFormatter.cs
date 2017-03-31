@@ -407,7 +407,7 @@ namespace Microsoft.Web.XmlTransform
 
         private string ComputeOneTab() {
             Debug.Assert(indents.Count > 0, "Expected at least one previous indent");
-            if (indents.Count < 0) {
+            if (indents.Count <= 0) {
                 return DefaultTab;
             }
 

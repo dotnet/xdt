@@ -54,7 +54,7 @@ namespace Microsoft.Web.XmlTransform
         {
             if (streamReader != null)
             {
-                streamReader.Dispose();
+                streamReader.Close();
                 streamReader = null;
             }
             if (reader != null)

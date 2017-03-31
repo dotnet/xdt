@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XmlTransform.Test.Properties {
+namespace Microsoft.Web.Xdt.Test.Properties {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -23,7 +22,7 @@ namespace XmlTransform.Test.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,10 +36,10 @@ namespace XmlTransform.Test.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("XmlTransform.Test.Properties.Resources", typeof(Resources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Web.Xdt.Test.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -52,7 +51,7 @@ namespace XmlTransform.Test.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -71,7 +70,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;add name=&quot;AddingScenario2&quot; connectionString=&quot;Just ask Joe, he&apos;ll do it&quot;
         ///      providerName=&quot;Joe, the great provider of data who will provide your  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AttributeFormating_destination {
+        public static string AttributeFormating_destination {
             get {
                 return ResourceManager.GetString("AttributeFormating_destination", resourceCulture);
             }
@@ -86,7 +85,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;!-- Attributes on this element should be separated by spaces, with providerName wrapped using a generated tab --&gt;
         ///    &lt;add  name=&quot;AddingScenario2&quot;   connectionString=&quot;Data Source=JODAVIS-DEV1 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AttributeFormating_source {
+        public static string AttributeFormating_source {
             get {
                 return ResourceManager.GetString("AttributeFormating_source", resourceCulture);
             }
@@ -102,7 +101,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;!-- 2. All attributes added, No newlines from siblings --&gt;
         ///    &lt;add name=&quot;AddingScenario2&quot; connectionString=&quot;Just ask Joe, he&apos;ll  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AttributeFormating_transform {
+        public static string AttributeFormating_transform {
             get {
                 return ResourceManager.GetString("AttributeFormating_transform", resourceCulture);
             }
@@ -122,7 +121,7 @@ namespace XmlTransform.Test.Properties {
         ///Executing Replace (transform line 10, 165)
         ///  on /configuration/connectionStrings/add[@name=&apos;Ad [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AttributeFormatting_log {
+        public static string AttributeFormatting_log {
             get {
                 return ResourceManager.GetString("AttributeFormatting_log", resourceCulture);
             }
@@ -140,7 +139,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;/body&gt;
         ///&lt;/html&gt;.
         /// </summary>
-        internal static string EdgeCase_destination {
+        public static string EdgeCase_destination {
             get {
                 return ResourceManager.GetString("EdgeCase_destination", resourceCulture);
             }
@@ -153,7 +152,7 @@ namespace XmlTransform.Test.Properties {
         ///  Replaced &apos;title&apos; element
         ///Done executing Replace.
         /// </summary>
-        internal static string EdgeCase_log {
+        public static string EdgeCase_log {
             get {
                 return ResourceManager.GetString("EdgeCase_log", resourceCulture);
             }
@@ -171,7 +170,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;/body&gt;
         ///&lt;/html&gt;.
         /// </summary>
-        internal static string EdgeCase_source {
+        public static string EdgeCase_source {
             get {
                 return ResourceManager.GetString("EdgeCase_source", resourceCulture);
             }
@@ -186,7 +185,7 @@ namespace XmlTransform.Test.Properties {
         ///&lt;/html&gt;
         ///.
         /// </summary>
-        internal static string EdgeCase_transform {
+        public static string EdgeCase_transform {
             get {
                 return ResourceManager.GetString("EdgeCase_transform", resourceCulture);
             }
@@ -203,7 +202,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;!-- There should be no blank line after this comment --&gt;
         ///      &lt;!-- This comment should [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TagFormatting_destination {
+        public static string TagFormatting_destination {
             get {
                 return ResourceManager.GetString("TagFormatting_destination", resourceCulture);
             }
@@ -224,7 +223,7 @@ namespace XmlTransform.Test.Properties {
         ///  on /configuration/appSettings/add
         ///  Applying to &apos;appSettings&apos; ele [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TagFormatting_log {
+        public static string TagFormatting_log {
             get {
                 return ResourceManager.GetString("TagFormatting_log", resourceCulture);
             }
@@ -240,7 +239,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;add key=&quot;RemoveNewLine&quot; value=&quot;This tag will be removed&quot;/&gt;
         ///      &lt;!-- This comment should be  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TagFormatting_source {
+        public static string TagFormatting_source {
             get {
                 return ResourceManager.GetString("TagFormatting_source", resourceCulture);
             }
@@ -255,7 +254,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;add key=&quot;InsertNewLine1&quot; value=&quot;This tag was added&quot; xct:Transform=&quot;InsertBefore(add[@key=&apos;InsertTarget1&apos;])&quot;/&gt;
         ///    &lt;add key=&quot;InsertNewLine2&quot; value=&quot;This tag was added&quot; xct:Transform=&quot;InsertAfter(add[@key=&apos;InsertTarget1&apos;])&quot; [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TagFormatting_transform {
+        public static string TagFormatting_transform {
             get {
                 return ResourceManager.GetString("TagFormatting_transform", resourceCulture);
             }
@@ -269,7 +268,7 @@ namespace XmlTransform.Test.Properties {
         ///transform.config (12, 20) error: Transform and Locator attributes must contain only a type name, or a type name followed by a list of attributes in parentheses.
         ///transform.config (13, 2 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string WarningsAndErrors_log {
+        public static string WarningsAndErrors_log {
             get {
                 return ResourceManager.GetString("WarningsAndErrors_log", resourceCulture);
             }
@@ -284,7 +283,7 @@ namespace XmlTransform.Test.Properties {
         ///&lt;/configuration&gt;
         ///.
         /// </summary>
-        internal static string WarningsAndErrors_source {
+        public static string WarningsAndErrors_source {
             get {
                 return ResourceManager.GetString("WarningsAndErrors_source", resourceCulture);
             }
@@ -308,7 +307,7 @@ namespace XmlTransform.Test.Properties {
         ///
         ///    &lt;!-- I [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string WarningsAndErrors_transform {
+        public static string WarningsAndErrors_transform {
             get {
                 return ResourceManager.GetString("WarningsAndErrors_transform", resourceCulture);
             }
@@ -334,7 +333,7 @@ namespace XmlTransform.Test.Properties {
         ///            The &lt;customErrors&gt; section enables configuration 
         ///            of what  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Web {
+        public static string Web {
             get {
                 return ResourceManager.GetString("Web", resourceCulture);
             }
@@ -354,7 +353,7 @@ namespace XmlTransform.Test.Properties {
         ///    &lt;connectionStrings&gt;
         ///      &lt; [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Web_Release {
+        public static string Web_Release {
             get {
                 return ResourceManager.GetString("Web_Release", resourceCulture);
             }

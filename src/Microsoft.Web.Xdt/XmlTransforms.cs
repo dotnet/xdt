@@ -4,8 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Diagnostics;
 using RegularExpressions = System.Text.RegularExpressions;
-using XmlTransform;
-using XmlTransform.Properties;
+using Microsoft.Web.Xdt.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -165,7 +164,7 @@ namespace Microsoft.Web.XmlTransform
                     targetAttribute.Value = transformAttribute.Value;
                 }
                 else {
-                    TargetNode.Attributes.Append((XmlAttribute)transformAttribute.CloneNode(true));
+                    TargetNode.Attributes.Append((XmlAttribute)transformAttribute.Clone());
                 }
 
                 Log.LogMessage(MessageType.Verbose, Resources.XMLTRANSFORMATION_TransformMessageSetAttribute, transformAttribute.Name);
@@ -216,7 +215,7 @@ namespace Microsoft.Web.XmlTransform
 
         private XmlAttribute tokenizeValueCurrentXmlAttribute = null;
 
-
+    
         protected SetTokenizedAttributeStorage TransformStorage
         {
             get
@@ -257,7 +256,7 @@ namespace Microsoft.Web.XmlTransform
                 }
                 else
                 {
-                    XmlAttribute newAttribute = (XmlAttribute)transformAttribute.CloneNode(true);
+                    XmlAttribute newAttribute = (XmlAttribute)transformAttribute.Clone();
                     newAttribute.Value = newValue;
                     TargetNode.Attributes.Append(newAttribute);
                 }
@@ -299,7 +298,7 @@ namespace Microsoft.Web.XmlTransform
             {
                 if (s_parentAttribRegex == null)
                 {
-                    s_parentAttribRegex = new RegularExpressions.Regex(@"\G\$\((?<tagname>[\w:\.]+)\)");
+                    s_parentAttribRegex = new RegularExpressions.Regex(@"\G\$\((?<tagname>[\w:\.]+)\)"); 
                 }
                 return s_parentAttribRegex;
             }
@@ -326,7 +325,7 @@ namespace Microsoft.Web.XmlTransform
             if (sourceAttribute == null)
             {
                 if (string.Compare(attributeName, tokenizeValueCurrentXmlAttribute.Name, StringComparison.OrdinalIgnoreCase) != 0)
-                {   // if it is other attributename, we fall back to the current now
+                {   // if it is other attributename, we fall back to the current now 
                     sourceAttribute = TransformNode.Attributes.GetNamedItem(attributeName) as XmlAttribute;
                 }
             }
@@ -443,7 +442,7 @@ namespace Microsoft.Web.XmlTransform
                         }
                     }
 
-                    if (identifier.Length == 0)
+                    if (identifier.Length == 0) 
                     {
                         for (int i = 0; i < TargetNodes.Count; i++)
                         {
@@ -472,9 +471,9 @@ namespace Microsoft.Web.XmlTransform
             return string.Concat(parentPath, "/", xmlNode.Name);
         }
 
-        private string TokenizeValue(XmlAttribute targetAttribute,
-                                     XmlAttribute transformAttribute,
-                                     bool fTokenizeParameter,
+        private string TokenizeValue(XmlAttribute targetAttribute, 
+                                     XmlAttribute transformAttribute, 
+                                     bool fTokenizeParameter, 
                                      List<Dictionary<string, string>> parameters)
         {
             Debug.Assert(!fTokenizeParameter || parameters != null);
@@ -563,7 +562,7 @@ namespace Microsoft.Web.XmlTransform
                                 // if token format contain the #(),we replace with the known value such that it is unique identify
                                 // for example, intokenizeTransformXml.cs, default token format is
                                 // string.Concat("$(ReplacableToken_#(", SetTokenizedAttributes.ParameterAttribute, ")_#(", SetTokenizedAttributes.TokenNumber, "))");
-                                // which ParameterAttribute will be translate to parameterDictionary["parameter"} and TokenNumber will be translate to parameter
+                                // which ParameterAttribute will be translate to parameterDictionary["parameter"} and TokenNumber will be translate to parameter 
                                 // parameterDictionary["TokenNumber"]
                                 string keyindex = keys[i];
                                 string val = paramDictionary[keyindex];

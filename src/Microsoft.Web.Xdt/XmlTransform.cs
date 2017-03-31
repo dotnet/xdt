@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Diagnostics;
-using XmlTransform;
-using XmlTransform.Properties;
+using Microsoft.Web.Xdt.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
@@ -255,7 +254,7 @@ namespace Microsoft.Web.XmlTransform
             foreach (XmlNode node in TargetNodes) {
                 try {
                     currentTargetNode = node;
-                    currentTransformNode = originalTransformNode.CloneNode(true);
+                    currentTransformNode = originalTransformNode.Clone();
 
                     ApplyOnce();
                 }
