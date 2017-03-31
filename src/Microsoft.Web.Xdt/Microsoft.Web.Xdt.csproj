@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <id>Microsoft.Web.Xdt</id>
-    <version>2.1.2</version>
+    <version>3.0</version>
     <title>Microsoft Xml Document Transformation</title>
     <authors>Microsoft Corporation</authors>
     <owners>Microsoft,aspnet</owners>
@@ -29,13 +29,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
-    <PackageReference Include="system.xml.xpath.xmldocument" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
