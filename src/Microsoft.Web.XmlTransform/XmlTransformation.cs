@@ -3,7 +3,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Xml;
 using System.IO;
-using Microsoft.Web.Xdt.Properties;
+using Microsoft.Web.XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {

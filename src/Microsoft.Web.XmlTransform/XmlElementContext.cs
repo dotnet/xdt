@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
-using Microsoft.Web.Xdt.Properties;
+using Microsoft.Web.XmlTransform.Properties;
 
 namespace Microsoft.Web.XmlTransform
 {
