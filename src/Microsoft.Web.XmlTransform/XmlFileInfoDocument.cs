@@ -199,22 +199,30 @@ namespace Microsoft.Web.XmlTransform
         public override void Save(string filename)
         {
             XmlWriter xmlWriter = null;
-            try{
-                if (PreserveWhitespace){
-                    XmlFormatter.Format(this);
-                    xmlWriter = new XmlAttributePreservingWriter(filename, TextEncoding);
+            using (Stream file = File.Create(filename))
+            {
+                try
+                {
+                    if (PreserveWhitespace)
+                    {
+                        XmlFormatter.Format(this);
+                        xmlWriter = new XmlAttributePreservingWriter(file, TextEncoding);
+                    }
+                    else
+                    {
+                        XmlTextWriter textWriter = new XmlTextWriter(file, TextEncoding);
+                        textWriter.Formatting = Formatting.Indented;
+                        xmlWriter = textWriter;
+                    }
+                    WriteTo(xmlWriter);
                 }
-                else {
-                    XmlTextWriter textWriter = new XmlTextWriter(filename, TextEncoding);
-                    textWriter.Formatting = Formatting.Indented;
-                    xmlWriter = textWriter;
-                }
-                WriteTo(xmlWriter);
-            }
-            finally {
-                if (xmlWriter != null) {
-                    xmlWriter.Flush();
-                    xmlWriter.Close();
+                finally
+                {
+                    if (xmlWriter != null)
+                    {
+                        xmlWriter.Flush();
+                        xmlWriter.Close();
+                    }
                 }
             }
         }
@@ -427,7 +435,7 @@ namespace Microsoft.Web.XmlTransform
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);        
+            GC.SuppressFinalize(this);
         }
 
         ~XmlFileInfoDocument()

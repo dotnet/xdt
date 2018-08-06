@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using Xunit;
 using System.Reflection;
-using Microsoft.Web.Xdt.Test.Properties;
+using Microsoft.Web.XmlTransform.Test.Properties;
 
 namespace Microsoft.Web.XmlTransform.Test
 {
@@ -31,19 +31,19 @@ namespace Microsoft.Web.XmlTransform.Test
             x.Save(fsDestFile);
 
             //verify, we have a success transform
-            Assert.Equal(true, succeed);
+            Assert.True(succeed);
 
             //verify, the stream is not closed
-            Assert.Equal(true, fsDestFile.CanWrite);
+            Assert.True(fsDestFile.CanWrite);
 
             //sanity verify the content is right, (xml was transformed)
             fsDestFile.Close();
             string content = File.ReadAllText(destFile);
-            Assert.False(content.Contains("debug=\"true\""));
-            
+            Assert.DoesNotContain("debug=\"true\"", content);
+
             List<string> lines = new List<string>(File.ReadLines(destFile));
             //sanity verify the line format is not lost (otherwsie we will have only one long line)
-            Assert.True(lines.Count>10);
+            Assert.True(lines.Count > 10);
 
             //be nice 
             transform.Dispose();
@@ -62,10 +62,10 @@ namespace Microsoft.Web.XmlTransform.Test
         [Fact]
         public void XmlTransform_TagFormatting()
         {
-             Transform_TestRunner_ExpectSuccess(Resources.TagFormatting_source,
-                    Resources.TagFormatting_transform,
-                    Resources.TagFormatting_destination,
-                    Resources.TagFormatting_log);
+            Transform_TestRunner_ExpectSuccess(Resources.TagFormatting_source,
+                   Resources.TagFormatting_transform,
+                   Resources.TagFormatting_destination,
+                   Resources.TagFormatting_log);
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace Microsoft.Web.XmlTransform.Test
             xmlTransform.Dispose();
             x.Dispose();
             //test
-            Assert.Equal(true, succeed);
+            Assert.True(succeed);
             CompareFiles(destFile, baselineFile);
             CompareMultiLines(expectedLog, logger.LogText);
         }
@@ -132,7 +132,7 @@ namespace Microsoft.Web.XmlTransform.Test
             xmlTransform.Dispose();
             x.Dispose();
             //test
-            Assert.Equal(false, succeed);
+            Assert.False(succeed);
             CompareMultiLines(expectedLog, logger.LogText);
         }
 
@@ -155,8 +155,8 @@ namespace Microsoft.Web.XmlTransform.Test
 
         private void CompareMultiLines(string baseline, string result)
         {
-            string[] baseLines = baseline.Split(new string[] { System.Environment.NewLine },  StringSplitOptions.None);
-            string[] resultLines = result.Split(new string[] { System.Environment.NewLine },  StringSplitOptions.None);
+            string[] baseLines = baseline.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] resultLines = result.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
 
             for (int i = 0; i < baseLines.Length; i++)
             {
