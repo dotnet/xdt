@@ -5,27 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Microsoft.Web.Xdt</PackageId>
-    <PackageVersion>3.0.0</PackageVersion>
-    <Authors>Microsoft Corporation</Authors>
-    <Title>Microsoft Xml Document Transformation</Title>
-    <Description>Microsoft Xml Document Transformation (XDT) enables transformig XML files. This is the same technology used to transform web.config files for Visual Studio web projects.</Description>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</PackageLicenseUrl>
-    <PackageProjectUrl>http://github.com/aspnet/xdt</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <PackageTags>Microsoft Xdt XmlDocumentTransform XmlTransform</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <RepositoryUrl>http://github.com/aspnet/xdt</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <XdtRoot Condition="'$(XdtRoot)' == ''">..\..\</XdtRoot>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>true</DelaySign>
-    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+
+  <Import Project="$(XdtRoot)\build\Version.props" />
+
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
