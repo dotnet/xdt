@@ -11,6 +11,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Web.XmlTransform"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Web.XmlTransform.Test", "test\Microsoft.Web.XmlTransform.Test\Microsoft.Web.XmlTransform.Test.csproj", "{0460A8EC-E9A8-41A7-9284-90D009AC96DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{8302D7C0-55CC-4992-B119-19DC7B105CC5}"
+	ProjectSection(SolutionItems) = preProject
+		build\build.proj = build\build.proj
+		build\package.proj = build\package.proj
+		build\sign.proj = build\sign.proj
+		build\test.proj = build\test.proj
+		build\Version.props = build\Version.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{74D1DFB9-EBEE-4DDF-BCDF-10AFFCB212F0}"
+	ProjectSection(SolutionItems) = preProject
+		build\publish\nuget.config = build\publish\nuget.config
+		build\publish\publish.proj = build\publish\publish.proj
+		build\publish\PublishPackages.csproj = build\publish\PublishPackages.csproj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +48,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E5C5B841-7F7D-4736-B467-1EEAA9DB44AB} = {F12A74E7-82BA-467A-B873-9719971D3108}
 		{0460A8EC-E9A8-41A7-9284-90D009AC96DE} = {D472681E-64B2-4C82-A52E-CD9D8930EA60}
+		{74D1DFB9-EBEE-4DDF-BCDF-10AFFCB212F0} = {8302D7C0-55CC-4992-B119-19DC7B105CC5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4AA6D5B-EA53-4BA8-9D05-B4C55C3B4B3D}
 	EndGlobalSection
 EndGlobal

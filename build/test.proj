@@ -1,0 +1,31 @@
+<!-- Test file -->
+<Project ToolsVersion="4.0" DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+  ***********************************************************************************************
+  TARGET : Test
+  ***********************************************************************************************
+ -->
+  <Target Name="Test"
+          Condition="'$(SkipTests)' != 'true'"
+          DependsOnTargets="_Test"/>
+
+  <!--
+  ***********************************************************************************************
+  TARGET : _Test
+  ***********************************************************************************************
+ -->
+  <Target Name="_Test">
+
+    <!-- Run .NET Core Tests -->
+    <Exec
+      Command="dotnet test &quot;$(XdtRoot)/test/Microsoft.Web.XmlTransform.Test/Microsoft.Web.XmlTransform.Test.csproj&quot; -f=netcoreapp2.0 /p:Configuration=$(Configuration)" />
+
+    <!-- Run .NET Framework Tests -->
+    <Exec
+      Condition="'$(NETFrameworkSupported)' != 'false'"
+      Command="dotnet test &quot;$(XdtRoot)/test/Microsoft.Web.XmlTransform.Test/Microsoft.Web.XmlTransform.Test.csproj&quot; -f=net46 /p:Configuration=$(Configuration)" />
+
+  </Target>
+
+</Project>

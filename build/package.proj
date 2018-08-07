@@ -1,0 +1,24 @@
+<!-- Build file -->
+<Project ToolsVersion="14.0" DefaultTargets="Package" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+  ***********************************************************************************************
+  TARGET : Package
+  ***********************************************************************************************
+ -->
+  <Target Name="Package"
+          Condition="'$(SkipPackages)' != 'true'"
+          DependsOnTargets="_Package"/>
+
+  <Target Name="_Package">
+
+    <ItemGroup>
+      <ProjectFile Include="$(XdtRoot)/src/Microsoft.Web.XmlTransform/Microsoft.Web.XmlTransform.csproj" />
+    </ItemGroup>
+
+    <MSBuild Projects="@(ProjectFile)"
+             Targets ="pack"/>
+
+  </Target>
+
+</Project>
