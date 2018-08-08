@@ -6,7 +6,6 @@
 
   <PropertyGroup>
     <XdtRoot Condition="'$(XdtRoot)' == ''">..\..\</XdtRoot>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <Import Project="$(XdtRoot)\build\Version.props" />
