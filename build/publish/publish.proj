@@ -34,17 +34,17 @@
 
   <!--
   ***********************************************************************************************
-  TARGET : _PublishToMyGet
+  TARGET : _Publish
   ***********************************************************************************************
  -->
-  <Target Name="_Publish" DependsOnTargets="_PublishToMyGet;_PublishToBlob;" />
+  <Target Name="_Publish" DependsOnTargets="PublishToMyGet;PublishToBlob;" />
 
   <!--
   ***********************************************************************************************
   TARGET : PublishToMyGet
   ***********************************************************************************************
  -->
-  <Target Name="_PublishToMyGet" Condition="'$(MyGetSecurityToken)' != ''" >
+  <Target Name="PublishToMyGet" Condition="'$(MyGetSecurityToken)' != ''" >
     <PropertyGroup>
       <MyGetFeedUrl Condition="'$(MyGetFeedUrl)' == ''">https://dotnet.myget.org/F/dotnet-web/api/v2/package</MyGetFeedUrl>
     </PropertyGroup>
@@ -56,10 +56,10 @@
 
   <!--
   ***********************************************************************************************
-  TARGET : _PublishToBlob
+  TARGET : PublishToBlob
   ***********************************************************************************************
  -->
-  <Target Name="_PublishToBlob" Condition="'$(BlobFeedAccessToken)' != ''" >
+  <Target Name="PublishToBlob" Condition="'$(BlobFeedAccessToken)' != ''" >
     <Error Condition="!Exists('$(NuGetPackageRoot)\$(FeedTasksPackage)\$(FeedTasksPackageVersion)\build\Microsoft.DotNet.Build.Tasks.Feed.targets')" Text="Missing the Publish blob target" />
 
     <PropertyGroup>
