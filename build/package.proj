@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <ProjectFile Include="$(XdtRoot)/src/Microsoft.Web.XmlTransform/Microsoft.Web.XmlTransform.csproj" > 
-        <Properties>IncludeSymbols=true</Properties>
+        <Properties>IncludeSymbols=false</Properties>
       </ProjectFile>
     </ItemGroup>
 
