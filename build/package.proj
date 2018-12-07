@@ -13,11 +13,13 @@
   <Target Name="_Package">
 
     <ItemGroup>
-      <ProjectFile Include="$(XdtRoot)/src/Microsoft.Web.XmlTransform/Microsoft.Web.XmlTransform.csproj" />
+      <ProjectFile Include="$(XdtRoot)/src/Microsoft.Web.XmlTransform/Microsoft.Web.XmlTransform.csproj" > 
+        <Properties>IncludeSymbols=true</Properties>
+      </ProjectFile>
     </ItemGroup>
 
     <MSBuild Projects="@(ProjectFile)"
-             Targets ="pack"/>
+             Targets ="pack" />
 
   </Target>
 

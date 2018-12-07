@@ -12,11 +12,11 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</PackageLicenseUrl>
-    <PackageProjectUrl>http://github.com/aspnet/xdt</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/aspnet/xdt</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>Microsoft Xdt XmlDocumentTransform XmlTransform</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <RepositoryUrl>http://github.com/aspnet/xdt</RepositoryUrl>
+    <RepositoryUrl>https://github.com/aspnet/xdt</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
