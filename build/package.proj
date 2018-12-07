@@ -10,11 +10,15 @@
           Condition="'$(SkipPackages)' != 'true'"
           DependsOnTargets="_Package"/>
 
+  <PropertyGroup>
+    <IncludeSymbols Condition="'$(IncludeSymbols)' == ''">false</IncludeSymbols>  
+  </PropertyGroup>
+  
   <Target Name="_Package">
 
     <ItemGroup>
       <ProjectFile Include="$(XdtRoot)/src/Microsoft.Web.XmlTransform/Microsoft.Web.XmlTransform.csproj" > 
-        <Properties>IncludeSymbols=false</Properties>
+        <Properties>IncludeSymbols=$(IncludeSymbols)</Properties>
       </ProjectFile>
     </ItemGroup>
 
