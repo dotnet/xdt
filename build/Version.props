@@ -6,7 +6,7 @@
   
   <PropertyGroup>
     <PackageId>Microsoft.Web.Xdt</PackageId>
-    <Authors>Microsoft Corporation</Authors>
+    <Authors>Microsoft</Authors>
     <Title>Microsoft Xml Document Transformation</Title>
     <Description>Microsoft Xml Document Transformation (XDT) enables transformig XML files. This is the same technology used to transform web.config files for Visual Studio web projects.</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
