@@ -1,18 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <XdtRoot Condition="'$(XdtRoot)' == ''">..\..\</XdtRoot>
-  </PropertyGroup>
-      
-  <Import Project="$(XdtRoot)\build\Version.props" />
+    
+  <Import Project="$(RepositoryEngineeringDir)\Package.props" />
   
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>$(XdtRoot)\bin\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>$(XdtRoot)\obj\$(Configuration)\</IntermediateOutputPath>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
-
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
