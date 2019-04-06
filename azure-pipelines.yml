@@ -114,25 +114,25 @@ jobs:
       displayName: Build
       condition: succeeded()
 
-- template: /eng/common/templates/job/job.yml
-  parameters:
-    name: Linux
-    enableTelemetry: true
-    enablePublishBuildArtifacts: true
-    helixRepo: aspnet/xdt
-    pool:
-      name: Hosted Ubuntu 1604
-    container: LinuxContainer
-    strategy:
-      matrix:
-        debug_configuration:
-          _BuildConfig: Debug
-        release_configuration:
-          _BuildConfig: Release
-    steps:
-    - script: eng/common/cibuild.sh
-        --configuration $(_BuildConfig)
-        --prepareMachine
-      name: Build
-      displayName: Build
-      condition: succeeded()
+# - template: /eng/common/templates/job/job.yml
+#   parameters:
+#     name: Linux
+#     enableTelemetry: true
+#     enablePublishBuildArtifacts: true
+#     helixRepo: aspnet/xdt
+#     pool:
+#       name: Hosted Ubuntu 1604
+#     container: LinuxContainer
+#     strategy:
+#       matrix:
+#         debug_configuration:
+#           _BuildConfig: Debug
+#         release_configuration:
+#           _BuildConfig: Release
+#     steps:
+#     - script: eng/common/cibuild.sh
+#         --configuration $(_BuildConfig)
+#         --prepareMachine
+#       name: Build
+#       displayName: Build
+#       condition: succeeded()
