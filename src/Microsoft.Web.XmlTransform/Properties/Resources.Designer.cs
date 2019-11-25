@@ -169,6 +169,15 @@ namespace Microsoft.Web.XmlTransform.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot comment out the whole XML document.
+        /// </summary>
+        internal static string XMLTRANSFORMATION_InvalidCommentOutTarget {
+            get {
+                return ResourceManager.GetString("XMLTRANSFORMATION_InvalidCommentOutTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No attribute &apos;{0}&apos; exists for the Match Locator.
         /// </summary>
         internal static string XMLTRANSFORMATION_MatchAttributeDoesNotExist {
@@ -255,6 +264,15 @@ namespace Microsoft.Web.XmlTransform.Properties {
         internal static string XMLTRANSFORMATION_TransformErrorExecutingMessage {
             get {
                 return ResourceManager.GetString("XMLTRANSFORMATION_TransformErrorExecutingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commented out &apos;{0}&apos; element.
+        /// </summary>
+        internal static string XMLTRANSFORMATION_TransformMessageCommentOut {
+            get {
+                return ResourceManager.GetString("XMLTRANSFORMATION_TransformMessageCommentOut", resourceCulture);
             }
         }
         

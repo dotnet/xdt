@@ -317,7 +317,13 @@ namespace Microsoft.Web.XmlTransform.Test.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;configuration&gt;
         ///
-        ///    &lt;appSettings /&gt;
+        ///    &lt;appSettings&gt;
+        ///    &lt;!--
+        ///		This is a simple application settings key, which can be used as target
+        ///		for the CommentOut XML transformation.
+        ///    --&gt;
+        ///		&lt;add key=&quot;keyAppSettings1&quot; value=&quot;This key will be commented out.&quot; /&gt;
+        ///    &lt;/appSettings&gt;
         ///    &lt;connectionStrings /&gt;
         ///    &lt;system.web&gt;
         ///        &lt;compilation debug=&quot;true&quot;&gt;
@@ -325,13 +331,7 @@ namespace Microsoft.Web.XmlTransform.Test.Properties {
         ///        &lt;/compilation&gt;
         ///        &lt;!--
         ///            The &lt;authentication&gt; section enables configuration 
-        ///            of the security authentication mode used by 
-        ///            ASP.NET to identify an incoming user. 
-        ///        --&gt;
-        ///        &lt;authentication mode=&quot;Windows&quot; /&gt;
-        ///        &lt;!--
-        ///            The &lt;customErrors&gt; section enables configuration 
-        ///            of what  [rest of string was truncated]&quot;;.
+        ///            of the security authentic [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Web {
             get {
@@ -356,6 +356,26 @@ namespace Microsoft.Web.XmlTransform.Test.Properties {
         public static string Web_Release {
             get {
                 return ResourceManager.GetString("Web_Release", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;!-- For more information on using web.config transformation visit http://go.microsoft.com/fwlink/?LinkId=125889 --&gt;
+        ///
+        ///&lt;configuration xmlns:xdt=&quot;http://schemas.microsoft.com/XML-Document-Transform&quot;&gt;
+        ///  &lt;!--
+        ///    In the example below, the &quot;SetAttributes&quot; transform will change the value of 
+        ///    &quot;connectionString&quot; to use &quot;ReleaseSQLServer&quot; only when the &quot;Match&quot; locator 
+        ///    finds an attribute &quot;name&quot; that has a value of &quot;MyDB&quot;.
+        ///    
+        ///    &lt;connectionStrings&gt;
+        ///      &lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Web_Test {
+            get {
+                return ResourceManager.GetString("Web_Test", resourceCulture);
             }
         }
     }

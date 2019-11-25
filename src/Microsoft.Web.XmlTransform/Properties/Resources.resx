@@ -243,4 +243,10 @@
   <data name="XMLTRANSFORMATION_UnknownXdtTag" xml:space="preserve">
     <value>Unknown tag '{0}'</value>
   </data>
+  <data name="XMLTRANSFORMATION_InvalidCommentOutTarget" xml:space="preserve">
+    <value>Cannot comment out the whole XML document</value>
+  </data>
+  <data name="XMLTRANSFORMATION_TransformMessageCommentOut" xml:space="preserve">
+    <value>Commented out '{0}' element</value>
+  </data>
 </root>
