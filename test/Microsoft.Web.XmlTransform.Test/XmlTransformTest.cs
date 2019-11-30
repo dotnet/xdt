@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -86,6 +86,52 @@ namespace Microsoft.Web.XmlTransform.Test
             Transform_TestRunner_ExpectFail(Resources.WarningsAndErrors_source,
                     Resources.WarningsAndErrors_transform,
                     Resources.WarningsAndErrors_log);
+        }
+
+        /// <summary>
+        /// This is a result of getting errors from VSTS / Azure Devops pipeline transforms failing.
+        /// The error is caused by having RemoveAttributes in a transform when the source doesn't have the attribute.
+        /// There is no error when using a transform to change the value of a non existing attribute so it felt wrong.
+        /// The pipelines use ConfigTransformationTool ctt.exe (https://ctt.codeplex.com) to do the transforms which refs this lib.
+        /// The issue is caused by a typo in XmlTransformationLogger.ConvertUriToFileName.
+        /// </summary>
+        [Fact]
+        public void XmlTransformWithLogger_Expect_Success_RemoveAttributes_When_Attribute_Not_Present()
+        {
+            //============================================================================ robs ==
+            // Needs to have a logger as that's where the exception this is to highlight originates
+            //====================================================================== 2019-11-29 ==
+            var logger = new TestTransformationLogger();
+
+            //============================================================================ robs ==
+            // This HAS to be XmlDocument, if it's XmlTransformableDocument it won't hit the
+            // exception path this test is for.
+            //====================================================================== 2019-11-30 ==
+            var sourceConfig = new System.Xml.XmlDocument();
+
+            //============================================================================ robs ==
+            // Load original source web.config - with debug="true"
+            //====================================================================== 2019-11-30 ==
+            sourceConfig.LoadXml(Resources.Web);
+
+            //============================================================================ robs ==
+            // Create two transforms, one to replicate a release build config transform and another
+            // to replicate a deploy transform - they are both the same but it doesn't matter as long as
+            // the result is that one transform has RemoveAttributes when the source does not have
+            // the attribute.
+            //====================================================================== 2019-11-30 ==
+            using (var transformRelease = new XmlTransformation(Resources.Web_Release, false, logger))
+            using (var transformDeploy = new XmlTransformation(Resources.Web_Release, false, logger))
+            {
+                bool transformReleaseSucceed = transformRelease.Apply(sourceConfig);
+                Assert.True(transformReleaseSucceed);
+
+                bool transformDeploySucceed = transformDeploy.Apply(sourceConfig);
+                Assert.True(transformDeploySucceed);
+
+                string transformedContent = sourceConfig.OuterXml;
+                Assert.DoesNotContain("debug=\"true\"", transformedContent);
+            }
         }
 
         private void Transform_TestRunner_ExpectSuccess(string source, string transform, string baseline, string expectedLog)
