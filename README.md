@@ -1,5 +1,5 @@
 # Microsoft Xml Document Transformation (XDT)
-Microsoft Xml Document Transformation (XDT) enables transformig XML files. This is the same technology used to transform web.config files in .NET CLI and Visual Studio.
+Microsoft Xml Document Transformation (XDT) enables transforming XML files. This is the same technology used to transform web.config files in .NET CLI and Visual Studio.
 
 ## How to Engage, Contribute, and Give Feedback
 
