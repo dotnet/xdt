@@ -212,7 +212,7 @@ namespace Microsoft.Web.XmlTransform
                 uri = errorInfoDocument.FileName;
             }
             else {
-                uri = errorInfoDocument.BaseURI;
+                uri = xmlDocument.BaseURI;
             }
 
             return ConvertUriToFileName(uri);
