@@ -3,7 +3,7 @@
 One of the easiest ways to contribute is to participate in discussions on GitHub issues. You can also contribute by submitting pull requests with code changes.
 
 ## General feedback and discussions?
-Start a discussion on the [repository issue tracker](https://github.com/aspnet/xdt/issues).
+Start a discussion on the [repository issue tracker](https://github.com/dotnet/xdt/issues).
 
 ## Bugs and feature requests?
 For non-security related bugs, log a new issue in this repo

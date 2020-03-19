@@ -9,11 +9,11 @@
     <Description>Microsoft Xml Document Transformation (XDT) enables transformig XML files. This is the same technology used to transform web.config files for Visual Studio web projects.</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/aspnet/xdt</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dotnet/xdt</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>Microsoft Xdt XmlDocumentTransform XmlTransform</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/aspnet/xdt</RepositoryUrl>
+    <RepositoryUrl>https://github.com/dotnet/xdt</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 </Project>
