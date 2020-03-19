@@ -179,6 +179,26 @@ namespace Microsoft.Web.XmlTransform
         }
     }
 
+    public class CommentOut : Transform
+    {
+        protected override void Apply()
+        {
+            XmlNode parentNode = TargetNode.ParentNode;
+            XmlDocument document = TargetNode.OwnerDocument;
+            if (parentNode == null || document == null)
+            {
+                throw new XmlTransformationException(Resources.XMLTRANSFORMATION_InvalidCommentOutTarget);
+            }
+
+            string outerXml = $" {TargetNode.OuterXml} ";
+            XmlComment comment = document.CreateComment(outerXml);
+            parentNode.InsertAfter(comment, TargetNode);
+            parentNode.RemoveChild(TargetNode);
+
+            Log.LogMessage(MessageType.Verbose, string.Format(System.Globalization.CultureInfo.CurrentCulture,Resources.XMLTRANSFORMATION_TransformMessageCommentOut, TargetNode.Name));
+        }
+    }
+    
 
     public class SetTokenizedAttributeStorage
     {

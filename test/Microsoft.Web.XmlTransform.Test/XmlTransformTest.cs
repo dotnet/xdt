@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using Xunit;
 using System.Reflection;
+using System.Xml;
 using Microsoft.Web.XmlTransform.Test.Properties;
 
 namespace Microsoft.Web.XmlTransform.Test
@@ -86,6 +87,56 @@ namespace Microsoft.Web.XmlTransform.Test
             Transform_TestRunner_ExpectFail(Resources.WarningsAndErrors_source,
                     Resources.WarningsAndErrors_transform,
                     Resources.WarningsAndErrors_log);
+        }
+
+        [Fact]
+        public void XmlTransform_Support_CommentOut()
+        {
+            string src = CreateATestFile("Web.config", Resources.Web);
+            string transformFile = CreateATestFile("Web.Test.config", Resources.Web_Test);
+            string destFile = GetTestFilePath("MyWeb.config");
+            string keyName = "keyAppSettings1";
+
+            //execute
+            Microsoft.Web.XmlTransform.XmlTransformableDocument x = new Microsoft.Web.XmlTransform.XmlTransformableDocument();
+            x.PreserveWhitespace = true;
+            x.Load(src);
+
+            // Verify the XML content has the requested XML node
+            var xPathString = $"/configuration/appSettings/add[@key='{keyName}']";
+            System.Xml.XmlNodeList nodesFound = x.SelectNodes(xPathString);
+            Assert.NotNull(nodesFound);
+            Assert.NotEmpty(nodesFound);
+
+            Microsoft.Web.XmlTransform.XmlTransformation transform = new Microsoft.Web.XmlTransform.XmlTransformation(transformFile);
+
+            bool succeed = transform.Apply(x);
+
+            FileStream fsDestFile = new FileStream(destFile, FileMode.OpenOrCreate);
+            x.Save(fsDestFile);
+
+            //verify, we have a success transform
+            Assert.True(succeed);
+
+            //sanity verify the content is right, (xml was transformed)
+            fsDestFile.Close();
+            x.Dispose();
+            x = new Microsoft.Web.XmlTransform.XmlTransformableDocument();
+            x.PreserveWhitespace = true;
+            x.Load(destFile);
+
+            // Verify the XML content does not expose the requested (already commented out) XML node
+            nodesFound = x.SelectNodes(xPathString);
+            Assert.NotNull(nodesFound);
+            Assert.Empty(nodesFound);
+
+            List<string> lines = new List<string>(File.ReadLines(destFile));
+            //sanity verify the line format is not lost (otherwise we will have only one long line)
+            Assert.True(lines.Count > 10);
+
+            //be nice 
+            transform.Dispose();
+            x.Dispose();
         }
 
         /// <summary>
