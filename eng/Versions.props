@@ -6,7 +6,7 @@
     <UsingToolNetFrameworkReferenceAssemblies Condition="'$(DotNetBuildFromSource)' != 'true'">true</UsingToolNetFrameworkReferenceAssemblies>
   </PropertyGroup>
   <PropertyGroup>
-    <VersionPrefix>3.0.1</VersionPrefix>
+    <VersionPrefix>3.1.0</VersionPrefix>
     <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
   </PropertyGroup>
   <PropertyGroup>
