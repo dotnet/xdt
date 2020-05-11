@@ -7,7 +7,7 @@
     <TargetFrameworks Condition="'$(DotNetBuildFromSource)' != 'true'">$(TargetFrameworks);net40</TargetFrameworks>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <IsPackable>true</IsPackable>
-    <IsShipping>false</IsShipping>
+    <IsShipping>true</IsShipping>
   </PropertyGroup>
 
   <ItemGroup>
