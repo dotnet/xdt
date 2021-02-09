@@ -270,7 +270,7 @@ namespace Microsoft.Web.XmlTransform.Test
 
         private string GetTestFilePath(string filename)
         {
-            Uri asm = new Uri(typeof(XmlTransformTest).GetTypeInfo().Assembly.CodeBase, UriKind.Absolute);
+            Uri asm = new Uri(typeof(XmlTransformTest).GetTypeInfo().Assembly.Location, UriKind.Absolute);
             string dir = Path.GetDirectoryName(asm.LocalPath);
             string folder = Path.Combine(dir, "testfiles");
             Directory.CreateDirectory(folder);
