@@ -2,18 +2,18 @@ trigger:
   batch: true
   branches:
     include:
-    - master
     - main
     - release/3*
     - release/5*
+    - release/6*
 
 pr:
   branches:
     include:
-    - master
     - main
     - release/3*
     - release/5*
+    - release/6*
 
 variables:
   # Cannot use key:value syntax in root defined variables
