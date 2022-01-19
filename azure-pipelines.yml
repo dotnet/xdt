@@ -117,7 +117,7 @@ stages:
 
       - job: OSX
         pool:
-          name: Hosted macOS
+          vmImage: 'macOS-1015'
         strategy:
           matrix:
             debug_configuration:
@@ -136,7 +136,7 @@ stages:
           
       - job: Linux
         pool:
-          name: Hosted Ubuntu 1604
+          vmImage: 'ubuntu-20.04'
         container: LinuxContainer
         strategy:
           matrix:
