@@ -7,4 +7,9 @@
     <VersionPrefix>7.0.0</VersionPrefix>
     <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
   </PropertyGroup>
+  <!--Package versions-->
+  <PropertyGroup>
+    <MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>8.0.0-alpha.1.22517.1</MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>
+    <MicrosoftSourceLinkGitHubPackageVersion>1.2.0-beta-22503-03</MicrosoftSourceLinkGitHubPackageVersion>
+  </PropertyGroup>
 </Project>
