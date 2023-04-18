@@ -96,7 +96,10 @@ namespace Microsoft.Web.XmlTransform
                 else if (buffer[0] == 0xFF && buffer[1] == 0xFE)
                     encoding = Encoding.Unicode;
                 else if (buffer[0] == 0x2B && buffer[1] == 0x2F && buffer[2] == 0x76)
+// 'Encoding.UTF7' is obsolete: 'The UTF-7 encoding is insecure and should not be used. Consider using UTF-8 instead.'
+#pragma warning disable SYSLIB0001
                     encoding = Encoding.UTF7;
+#pragma warning restore SYSLIB0001
 
                 // Reset the stream
                 stream.Seek(0, SeekOrigin.Begin);

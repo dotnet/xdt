@@ -60,7 +60,9 @@ namespace Microsoft.Web.XmlTransform
             }
         }
 
+#if NETSTANDARD
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+#endif
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
