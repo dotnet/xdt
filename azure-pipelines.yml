@@ -3,17 +3,13 @@ trigger:
   branches:
     include:
     - main
-    - release/3*
-    - release/5*
-    - release/6*
+    - release/*.*
 
 pr:
   branches:
     include:
     - main
-    - release/3*
-    - release/5*
-    - release/6*
+    - release/*.*
 
 variables:
   # Cannot use key:value syntax in root defined variables
@@ -160,12 +156,8 @@ stages:
   - template: eng\common\templates\post-build\post-build.yml
     parameters:
       publishingInfraVersion: 3
-      # Symbol validation isn't being very reliable lately. This should be enabled back
-      # once this issue is resolved: https://github.com/dotnet/arcade/issues/2871
-      enableSymbolValidation: false
-      # Sourcelink validation isn't passing for Arcade due to some regressions. This should be
-      # enabled back once this issue is resolved: https://github.com/dotnet/arcade/issues/2912
-      enableSourceLinkValidation: false
+      enableSymbolValidation: true
+      enableSourceLinkValidation: true
       publishDependsOn:
       - Validate
       # This is to enable SDL runs part of Post-Build Validation Stage
