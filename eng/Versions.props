@@ -10,8 +10,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>8.0.0-alpha.1.23217.1</MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>
-    <MicrosoftSourceLinkGitHubPackageVersion>8.0.0-beta.23218.3</MicrosoftSourceLinkGitHubPackageVersion>
     <!-- netstandard -->
     <NETStandardLibraryVersion>2.0.3</NETStandardLibraryVersion>
   </PropertyGroup>
