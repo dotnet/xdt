@@ -8,13 +8,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Microsoft.Web.XmlTransform\Microsoft.Web.XmlTransform.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="xunit.assert" Version="$(XUnitVersion)" />
-    <PackageReference Include="xunit.core" Version="$(XUnitVersion)" />
-    <!-- Upgrade the NETStandard.Library transitive xunit dependency to avoid transitive 1.x NS dependencies. -->
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-  </ItemGroup>
   
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx"
