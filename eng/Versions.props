@@ -1,14 +1,11 @@
 <Project>
-
   <PropertyGroup>
     <VersionPrefix>8.0.0</VersionPrefix>
     <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
     <UsingToolXliff>false</UsingToolXliff>
   </PropertyGroup>
-
   <PropertyGroup>
     <MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>8.0.0-alpha.1.23217.1</MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>
-    <MicrosoftSourceLinkGitHubPackageVersion>8.0.0-beta.23211.2</MicrosoftSourceLinkGitHubPackageVersion>
+    <MicrosoftSourceLinkGitHubPackageVersion>8.0.0-beta.23218.3</MicrosoftSourceLinkGitHubPackageVersion>
   </PropertyGroup>
-
 </Project>
