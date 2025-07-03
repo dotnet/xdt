@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix>3.2.0</VersionPrefix>
-    <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
+    <PreReleaseVersionLabel>rtm</PreReleaseVersionLabel>
     <UseVSTestRunner>true</UseVSTestRunner>
     <!-- Prohibit the usage of .NET Standard 1.x dependencies. -->
     <FlagNetStandard1XDependencies>true</FlagNetStandard1XDependencies>
